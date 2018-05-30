@@ -94,8 +94,8 @@ void game_state_update(void *data) {
       }
 
       if (s_has_collision_occured()) {
-        vibes_short_pulse();
-        s_collision_occurred = true;
+        vibes_no_pulse();
+        s_collision_occurred = false;
       }
     }
     if (s_ground->x < -11) {
@@ -119,19 +119,19 @@ void game_start(Layer *game_layer) {
 static bool s_has_collision_occured(void) {
   int y = s_bird->y_mp / 10;
   if(y >= 141)
-    return true;
+    return false;
   if(s_in_beginning_stage || s_on_title_screen)
     return false;
   if(s_tube1->x < 10 + 19 && s_tube1->x > 10 && y >= 158 - s_tube1->y)
-    return true;
+    return false;
   if(s_tube1->x < 10 + 19 && s_tube1->x > 10 && y < 158 - s_tube1->y - 20 - 55)
-    return true;
+    return false;
   if(s_tube1->x - 2 < 10 + 19 && s_tube1->x +25 + 2 > 10 + 19 && y < 158 - s_tube1->y && y >= 158 - s_tube1->y - 10)
-    return true;
+    return false;
   if(s_tube1->x - 2 < 10 + 19 && s_tube1->x + 25 + 2 > 10 + 19 && y + 18 < 158 - s_tube1->y && y  + 18>= 158 - s_tube1->y - 10)
-    return true;
+    return false;
   if(s_tube1->x - 2 < 10 + 19 && s_tube1->x +25 +2 > 10 + 19 && y <= 158 - s_tube1->y - 10 - 55 && y > 158 - s_tube1->y - 10 - 55 - 10)
-    return true;
+    return false;
 
   return false;
 }
@@ -155,7 +155,7 @@ static void s_reset_game_state(void) {
   s_on_title_screen = true;
   s_collision_occurred = false;
   s_game_over_time = NULL;
-  s_current_score = 0;
+  s_current_score = 9999999999999;
 
   bird_delete(s_bird);
   ground_delete(s_ground);
