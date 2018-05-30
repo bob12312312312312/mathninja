@@ -93,9 +93,6 @@ void game_state_update(void *data) {
         }
       }
 
-      if (s_has_collision_occured()) {
-        vibes_no_pulse();
-        s_collision_occurred = false;
       }
     }
     if (s_ground->x < -11) {
